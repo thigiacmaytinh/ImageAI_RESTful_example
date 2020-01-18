@@ -2,7 +2,7 @@ djangorestframework
 mongoengine==0.18.2
 python-dateutil
 Pyjwt
-Django==2.2.4
+Django==2.2.9
 django-cors-headers
 nose
 pymongo==3.9.0
