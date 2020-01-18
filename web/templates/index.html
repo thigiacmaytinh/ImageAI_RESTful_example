@@ -146,6 +146,7 @@
                     str += res.text[i]
                 }                
 
+                str += "Elapsed: " + res.elapsed
                 $("#txt_result").val(str)
 
                 document.getElementById('img').src = "data:image/png;base64," + res.img                

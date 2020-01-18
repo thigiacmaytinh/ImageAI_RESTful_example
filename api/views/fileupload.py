@@ -14,6 +14,7 @@ import base64
 from api.saveBase64Image import *
 from PIL import Image
 import datetime
+import time
 from imageai.Detection import ObjectDetection
 import tensorflow as tf
 
@@ -31,6 +32,9 @@ def UploadFile(request):
             return Response(
                 {'Error': "Thiếu tham số"},
                 status=ERROR_CODE, content_type="application/json")
+
+        #start count time
+        start_time = time.time()
 
         #get image data
         uploadfile = request.FILES['uploadfile']            
@@ -72,16 +76,19 @@ def UploadFile(request):
         with open(tempFilePath, "rb") as image_file:
             base64Str = base64.b64encode(image_file.read())
 
-        #result is json object
-        result = {
-            "num" : len(objects),
-            "text" : strResult,
-            "img": base64Str}
-
 
         #remove tempfile
         os.remove(saved_file_abs)
         os.remove(tempFilePath)
+
+        elapsed_time = time.time() - start_time
+
+        #result is json object
+        result = {
+            "num" : len(objects),
+            "text" : strResult,
+            "img": base64Str,
+            "elapsed" : elapsed_time}        
 
 
         return Response(
