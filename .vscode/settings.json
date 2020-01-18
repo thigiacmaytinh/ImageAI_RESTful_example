@@ -1,0 +1,5 @@
+{
+    "python.linting.pylintPath": "/usr/local/bin/pylint",
+    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "venv\\Scripts\\python.exe"
+}

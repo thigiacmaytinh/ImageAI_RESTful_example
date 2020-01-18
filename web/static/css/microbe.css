@@ -1,0 +1,92 @@
+.column-upload {
+  float: left;
+  /* width: 33.33%; */
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row-upload::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.box-border {
+  border: solid 1px;
+  border-radius: 5px;
+  padding: 5px;
+  border-color: #ccc;
+}
+
+input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+}
+
+input[type="radio"]{
+  width: 20px;
+  height: 20px;
+}
+
+.tooltip-arrow,
+.tooltip-inner {background-color: #0d599b;}
+
+#div_logo *
+{
+  color: green !important;
+}
+
+#microbe_detail_title1 *
+{
+  color: red !important;
+}
+
+#microbe_detail_title2 *
+{
+  color: green !important;
+}
+
+#microbe_detail_title4 *
+{
+  color: green !important;
+}
+@media print
+{
+  #page-wrapper
+  {    
+    font-family: 'Times New Roman';
+    font-size: 12px !important;
+    -webkit-print-color-adjust: exact !important;
+    margin: 0 0 0 0px !important;    
+  }
+
+  .table td.bg-primary
+  {
+    color: white !important;
+    background-color: #337ab7 !important;
+  }
+
+  .table td.bg-info
+  {
+    background-color: #d9edf7 !important;
+  }
+
+  #microbe_detail_title2 *
+  {
+    font-size: 17px !important;
+  }
+
+  #microbe_detail_title3 *
+  {
+    font-size: 16px !important;
+  }
+
+  #microbe_detail_title4 *
+  {
+    font-size: 30px !important;
+  }
+
+  a[href]:after{
+    content:"";
+  }
+}

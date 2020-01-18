@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <!-- Bootstrap Core CSS -->
+        {% load static %}
+        <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="{% static "vendor/metisMenu/metisMenu.min.css" %}" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="{% static "dist/css/sb-admin-2.css" %}" rel="stylesheet">
+        <link href="{% static "css/microbe.css" %}" rel="stylesheet">
+		<link href="{% static "css/jquery.timepicker.css" %}" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <!-- <link href="{% static "vendor/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css"> -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+		<link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}">
+        {% block head %}
+        <title>DL RESTful Example</title>
+        {% endblock %}
+
+    </head>
+    <body>
+    <div id="wrapper">
+            <!-- Navigation -->
+
+            {% if authorized %}
+            {% else %}
+            <div>
+            {% endif %}
+                {% block body %}
+
+
+                    </br>
+                <center>
+                    <div class="col-md-3">
+                        <a class="btn btn-outline btn-sq-lg btn-success" id="frm_upload">
+                            <i class="fas fa-plus fa-6x"></i>
+                        </a>                        
+                        <input name="uploadFile" id="uploadFile" type="file" class="inputFile"  style="display: none;"  />
+
+                        <textarea class="form-control " id="txt_result" rows="3"></textarea>       
+                    </div>
+
+                    <div class="col-md-3">
+                        <img id="img" src="#" style="max-width: 500px; max-height: 500px;">    
+                    </div>
+                    
+                </center>
+
+                
+                {% endblock %}
+            </div>
+            <!-- /#page-wrapper -->
+            
+        </div>
+
+
+        <div id="errorModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+                <div class="modal-content panel-red">
+                    <div class="modal-header panel-heading">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Có lỗi xảy ra</h4>
+                    </div>
+                    <div class="modal-body panel-body">
+                        <p id="errorMsg">Some text in the modal.</p>
+                    </div>
+                    <div class="modal-footer panel-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>          
+            </div>
+        </div>
+
+        <div id="noticeModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+            
+                <!-- Modal content-->
+                <div class="modal-content panel-green">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body panel-body">
+                    <p id="noticeMsg">Some text in the modal.</p>
+                </div>
+                <div class="modal-footer panel-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            
+            </div>
+        </div>
+
+    </body>
+
+
+     <!-- jQuery -->
+     <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+     <!-- Bootstrap Core JavaScript -->
+     <script src="{% static "vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+     <!-- Metis Menu Plugin JavaScript -->
+     <script src="{% static "vendor/metisMenu/metisMenu.min.js" %}"></script>
+     <!-- Custom Theme JavaScript -->
+     <script src="{% static "dist/js/sb-admin-2.js" %}"></script>
+     <script src="{% static "js/js.cookie.js" %}"></script>
+     <script src="{% static "js/microbe.js" %}"></script>
+     <script src="{% static "js/qrcode.js" %}"></script>
+     <script src="{% static "js/jquery.timepicker.js" %}"></script>
+     
+     <script>
+
+        $(document).keyup(function(e) {
+            if (e.key === "Escape") { 
+                $(".modal").modal('hide')
+            }
+        });
+        $( document ).ready(function() {
+            sethost("{{request.META.HTTP_HOST}}")
+
+            $('#frm_upload').bind("click",function()
+            {
+                $("input[id='uploadFile']").click();
+            })
+
+            $("#uploadFile").on('change', function(){
+                var myFormData = new FormData();
+                myFormData.append('uploadfile', this.files[0]); 
+
+                host_request = gethost() + "/api/file/upload"
+                ajaxUpload("POST", host_request, myFormData, OnUploadFileSuccess, genericFailCB);   
+            })
+
+            function OnUploadFileSuccess(res)
+            {
+                str = ""
+                for(i=0; i<res.text.length; i++)            
+                {
+                    str += res.text[i]
+                }                
+
+                $("#txt_result").val(str)
+
+                document.getElementById('img').src = "data:image/png;base64," + res.img                
+            }
+        });
+
+     </script>
+    {% block scripts %}
+    <script></script>
+    {% endblock %}
+</html>
