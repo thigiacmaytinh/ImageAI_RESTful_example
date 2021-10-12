@@ -18,5 +18,5 @@ pillow==7.0.0
 scipy==1.4.1
 h5py==2.10.0
 matplotlib==3.1.2
-opencv-python==4.1.2.30
+opencv-python==4.2.0.32
 imageai==2.1.0
