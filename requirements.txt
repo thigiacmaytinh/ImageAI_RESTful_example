@@ -11,7 +11,7 @@ flake8
 flake8-import-order
 Sphinx==1.5.5
 sphinx-rtd-theme==0.2.4
-tensorflow==1.15.2
+tensorflow==2.5.3
 keras==2.1.0
 numpy==1.18.1
 pillow==7.0.0
